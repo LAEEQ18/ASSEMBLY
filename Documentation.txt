@@ -1,0 +1,36 @@
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+
+Game Name  : Arrow Shooter 
+Created by 
+           : Muhammad Laeeq Asghar (224)
+           : Fahad Bin Ashiq (219)
+
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+
+Goal of Game:
+
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+
+The goal of game is to shoot the ball at specified target with an arrow.When arrow hits the ball the hit will be incremented by one and when arrow does not hit the ball Miss will incremented by one also.After missing three balls consectively the game will over.The Ball moves Up and down and we can shoot the arrow by positioning archer
+at specified location by control keys.
+
+
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+
+Control Keys for archer:
+
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+
+Alphabets :  W and S  
+Numeric : Up and down
+
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+
+Control Key to Shoot:
+
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+
+Space Bar
+
+''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''-''
+ 

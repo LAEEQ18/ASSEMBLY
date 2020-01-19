@@ -1,0 +1,180 @@
+DRow macro sx,ex,y,color
+	local label1
+	push cx
+	push dx
+	mov cx,sx
+	mov dx,y
+label1:
+	mov ah,0ch
+	mov bh,0
+	mov al,color
+	inc cx
+	cmp cx,ex
+	int 10h
+	jnz label1
+	pop dx
+	pop cx
+endm
+
+
+;it draw column on the graphical pixel form x to y
+DColumn macro sy,ey,x,color
+	local label2
+	push cx
+	push dx
+	mov cx,x
+	mov dx,sy
+label2:
+	mov ah,0ch
+	mov bh,0
+	mov al,color
+	inc dx
+	cmp dx,ey
+	int 10h
+	jnz label2
+	pop dx
+	pop cx
+endm
+
+
+
+;;;;;;;;;;;;;;;; macro for Press space to continue ;;;;;;;;;;;;;;;;;;;;;;;
+
+
+SETCURSOR MACRO ROW,COL
+MOV AH,02		;FUNCTION
+MOV BH,0H		;PAGE NUMBER
+MOV DH,ROW		;ROW TO SET CURSOR
+MOV DL,COL		;COLUMN TO  SET CURSOR
+INT 10H
+ENDM
+
+
+printstring  macro n
+lea dx,n
+mov ah,09
+int 21h
+
+endm
+
+
+;;;;;;;;;;;;;;;;;;; macro for ball and square ;;;;;;;;;;;;;;;;;;;
+
+
+ drawsquare2 macro x,y,color
+	DRow x,x+8,y,color
+	DRow x,x+8,y+1,color
+	DRow x,x+8,y+2,color
+	DRow x,x+8,y+3,color
+	DRow x,x+8,y+4,color
+	DRow x,x+8,y+5,color
+	DRow x,x+8,y+6,color
+
+endm
+
+
+drawball macro x,y,color
+	DRow x,x+7,y,color
+	DRow x-1,x+8,y+1,color
+	DRow x-2,x+9,y+2,color
+	DRow x-3,x+10,y+3,color
+	DRow x-3,x+8,y+4,color
+	DRow x-3,x+9,y+5,color
+	DRow x-3,x+10,y+6,color
+	DRow x-3,x+10,y+7,color
+	DRow x-2,x+9,y+8,color
+	DRow x-1,x+9,y+9,color
+	DRow x,x+9,y+10,color
+endm
+
+
+drawsquare macro x,y,color
+	DRow x,x+5,y,color
+	DRow x,x+5,y+1,color
+	DRow x,x+5,y+2,color
+	DRow x,x+5,y+3,color
+	DRow x,x+5,y+4,color
+
+endm
+
+
+
+;draw the arrow shooter on the graphics
+   drawsbox macro x,y,color
+	
+	DRow x,x+13,y,color
+	DRow x,x+13,y+1,color
+	DRow x,x+14,y+2,color
+	DRow x-1,x+15,y+3,color
+	DRow x-2,x+16,y+4,color
+	DRow x-3,x+17,y+5,color
+	DRow x-4,x+18,y+6,color
+	DRow x-5,x+19,y+7,color
+	DRow x-6,x+20,y+8,color
+	DRow x-7,x+21,y+9,color
+	DRow x-8,x+22,y+10,color
+	;DRow x-9,x+23,y+11,color
+	DRow x-10,x+24,y+12,color
+	DRow x-11,x+25,y+13,color
+	DRow x-12,x+26,y+14,color
+	DRow x-13,x+27,y+15,color
+	DRow x-14,x+28,y+16,color
+	DRow x-15,x+29,y+17,color
+	DRow x-16,x+30,y+18,color
+	DRow x-17,x+31,y+19,color
+	DRow x-18,x+32,y+20,color
+	DRow x-19,x+33,y+21,color
+	DRow x-20,x+34,y+22,color
+	;for white
+	DRow x,x+13,y+7,0fh
+	DRow x,x+13,y+8,0fh
+	DRow x,x+13,y+9,0fh
+	DRow x,x+13,y+7,0fh
+	
+endm
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;; MACRO TO SET POSITION ;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+SETRESOLUTION MACRO UROW,UCOL,LROW,LCOL,ATTRIB 
+MOV AH,06H		;FUNCTION
+MOV AL,0		
+MOV BH,ATTRIB	;ATTRIBUTE I.E COLOUR
+MOV CH,UROW		;STARTING ROW
+MOV CL,UCOL		;STARTING COLUMN
+MOV DH,LROW		;ENDING ROW
+MOV DL,LCOL		;ENDING COLUMN
+INT 10H
+ENDM
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;; MACRO TO SET THE CURSOR ;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+SETCURSOR MACRO ROW,COL
+MOV AH,02		;FUNCTION
+MOV BH,0H		;PAGE NUMBER
+MOV DH,ROW		;ROW TO SET CURSOR
+MOV DL,COL		;COLUMN TO  SET CURSOR
+INT 10H
+ENDM
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;; MACRO TO PRINT STRING ;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+PRINT MACRO STRING 
+MOV AH,09H				;COMMAND TO PRINT STRING
+MOV DX,OFFSET STRING	;LOADING ADDRESS OF THE STRING
+INT 21H
+ENDM
+
+Delay macro Dela
+  push ax
+  mov ax,dela
+  mov DelayTime,ax
+  call DelayProc
+  pop ax
+endm

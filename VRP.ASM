@@ -1,0 +1,77 @@
+
+
+PUBLIC ADDITION
+PUBLIC MULTIPLICATION
+
+.MODEL SMALL
+.STACK 100H
+.DATA
+VALUE1 DW 52
+VALUE2 DW 20
+SUM DW 2 DUP (?)
+PRODUCT DW 2 (?)
+
+value dw 0
+.CODE
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ADDITION PROC
+PUSH AX
+PUSH BX
+PUSH DX
+
+SUB BX,BX			;INITIALIZE CARRY COUNT
+MOV AX,VALUE1
+MOV DX,VALUE2
+add value,5
+ADD AX,DX			;ADDITION 
+ADD BX,00			;ACCUMULATE CARRY
+
+
+MOV SUM,AX			;STORE SUM
+MOV SUM+2,BX		;STORE CARRY
+
+MOV DX,SUM
+MOV AH,02
+INT 21H
+
+POP AX
+POP BX
+POP DX
+
+RET
+
+ADDITION ENDP
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+MULTIPLICATION PROC
+PUSH AX
+PUSH BX
+PUSH DX
+
+MOV AX,VALUE1
+MOV CX,VALUE2
+
+MUL CX				;MULTIPLY VALUE1 * VALUE2
+
+MOV PRODUCT,AX		;STORE PRODUCT  
+MOV PRODUCT+2,DX	;STORE PRODUCT HIGH WORD
+MOV DX,PRODUCT
+MOV AH,02
+INT 21H
+
+POP AX
+POP BX
+POP DX
+
+RET
+
+MULTIPLICATION ENDP
+
+
+END
